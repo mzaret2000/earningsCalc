@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+
+.zip.a94607 { fill: blue; }
+.zip.a94109 { fill: red; }
+
+.zip {fill :gray;}
+
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script>
+
+var width = $(".map").width(),
+    aspect = 500 / 950;
+
+var height = width * aspect
+
+$(window).resize(function() {
+  var width = $(".map").width();
+  var height = width * aspect
+  svg.attr("width", width);
+  svg.attr("height", height;
+});
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+d3.json("sf.json", function(error, sf) {
+  var sf2 = topojson.feature(sf, sf.objects.sf_zip);
+
+/* ******************* AUTOCENTERING ************************* */
+// Create a unit projection.
+var projection = d3.geo.albers()
+    .scale(1)
+    .translate([0, 0]);
+
+// Create a path generator.
+var path = d3.geo.path()
+    .projection(projection);
+
+// Compute the bounds of a feature of interest, then derive scale & translate.
+var b = path.bounds(sf2),
+    s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
+    t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
+
+// Update the projection to use computed scale & translate.
+projection
+    .scale(s)
+    .translate(t);
+/* ******************* END *********************************** */
+
+// Landmass
+  svg.append("path")
+      .datum(sf)
+      .attr("class", "feature")
+      .attr("d", path);
+
+// Focus
+  svg.append("path")
+      .datum(sf2)
+      .attr("class", "outline")
+      .attr("d", path);
+
+  svg.selectAll(".zip")
+      .data(topojson.feature(sf, sf.objects.sf_zip).features)
+    .enter().append("path")
+      .attr("class", function(d) { return "zip a" + d.properties.ZCTA5CE10; })
+      .attr("d", path);
+});
+
+
+
+
+</script>
+</body>
+</html>
