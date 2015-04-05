@@ -5,16 +5,30 @@
 
 <style>
 
+div {border: 1px solid green;}
 
-.county.highlight { fill: yellow; }
+.county.highlight {
+  fill: yellow;
+  font-size: 100%;
+}
+
+.h2 {
+  font-size: 150%;
+}
 
 .highlight2 {
     background: yellow;
   }
 
-.county {fill :gray;}
+.county {fill :#d8cdcd;}
 
-table {font-size: 50%;
+table {
+  font-size: 65%;
+  margin-bottom: 5px;
+}
+
+.segment {
+  font-size: 150%;
 }
 
 .cell {border: 1px solid green;}
@@ -28,15 +42,21 @@ table {font-size: 50%;
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 <div class="container">
+<div class="row"><div class="col-sm-6">
+  <div class="h2">Select Where and When Then Calculate.</div>
+  <button type="button">Calculate Fares!</button>
+  <div id="results"></div>
+</div>
+</div>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-sm-6">
     <div id="mapper" class="center-content clearfix">
-      <div class="header">Click where you are most likely to drive.</div>
+      <div class="h2">Click where you are most likely to drive.</div>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-sm-6">
     <div id="calendar">
-      <div class="header">Click when you plan to drive (or select schedule type).</div>
+      <div class="h2">Click when you plan to drive (or select schedule type).</div>
       <div class="table-responsive">
         <table class="table table-condensed">
             <tbody><tr>
@@ -302,8 +322,6 @@ table {font-size: 50%;
     </div>
   </div>
 </div>
-<div class="row"><div class="col-md-6"><button type="button">Count!</button>
-</div></div>
 </div>
 
 <script>
@@ -377,8 +395,8 @@ projection
     .attr("y", function(d){
         return  path.centroid(d)[1];
     })
-    .attr("text-anchor","middle")
-    .attr('font-size','8pt');
+    .attr("text-anchor","middle");
+
 
     $(".county").click(function(){
       var cclass = $(this).attr("class")
@@ -428,6 +446,9 @@ $(document).ready(function(){
         $(".highlight2").each(function(){ hours.push(this.id); });
         console.log(counties);
         console.log(hours);
+        $("#results").append("<p></p>").text("Counties: " + counties + ", Hour IDs: " + hours );
+
+
     });
 });
 
