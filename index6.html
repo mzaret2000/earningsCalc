@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+
+.subunit.SCT { fill: #ddc; }
+.subunit.WLS { fill: #cdd; }
+.subunit.NIR { fill: #cdc; }
+.subunit.ENG { fill: #dcd; }
+.subunit.IRL { display: none; }
+
+.subunit-boundary {
+  fill: none;
+  stroke: #777;
+  stroke-dasharray: 2,2;
+  stroke-linejoin: round;
+}
+
+.subunit-boundary.IRL {
+  stroke: #aaa;
+}
+
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script>
+
+var width = 960,
+    height = 500;
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+d3.json("testtopo.json", function(error, sf) {
+  var sf = topojson.feature(sf, sf.objects.testgeo);
+
+/* ******************* AUTOCENTERING ************************* */
+// Create a unit projection.
+var projection = d3.geo.albers()
+    .scale(1)
+    .translate([0, 0]);
+
+// Create a path generator.
+var path = d3.geo.path()
+    .projection(projection);
+
+// Compute the bounds of a feature of interest, then derive scale & translate.
+var b = path.bounds(sf),
+    s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
+    t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
+
+// Update the projection to use computed scale & translate.
+projection
+    .scale(s)
+    .translate(t);
+/* ******************* END *********************************** */
+
+// Landmass
+  svg.append("path")
+      .datum(sf)
+      .attr("class", "feature")
+      .attr("d", path);
+
+// Focus
+  svg.append("path")
+      .datum(sf)
+      .attr("class", "outline")
+      .attr("d", path);
+});
+
+
+</script>
+</body>
+</html>
