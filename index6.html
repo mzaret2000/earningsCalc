@@ -3,10 +3,22 @@
 <style>
 
 
-.zip.a94607 { fill: blue; }
-.zip.a94109 { fill: red; }
+.subunit.SCT { fill: #ddc; }
+.subunit.WLS { fill: #cdd; }
+.subunit.NIR { fill: #cdc; }
+.subunit.ENG { fill: #dcd; }
+.subunit.IRL { display: none; }
 
-.zip {fill :gray;}
+.subunit-boundary {
+  fill: none;
+  stroke: #777;
+  stroke-dasharray: 2,2;
+  stroke-linejoin: round;
+}
+
+.subunit-boundary.IRL {
+  stroke: #aaa;
+}
 
 
 </style>
@@ -15,24 +27,15 @@
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 <script>
 
-var width = $(".map").width(),
-    aspect = 500 / 950;
-
-var height = width * aspect
-
-$(window).resize(function() {
-  var width = $(".map").width();
-  var height = width * aspect
-  svg.attr("width", width);
-  svg.attr("height", height;
-});
+var width = 960,
+    height = 500;
 
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-d3.json("sf.json", function(error, sf) {
-  var sf2 = topojson.feature(sf, sf.objects.sf_zip);
+d3.json("testtopo.json", function(error, sf) {
+  var sf = topojson.feature(sf, sf.objects.testgeo);
 
 /* ******************* AUTOCENTERING ************************* */
 // Create a unit projection.
@@ -45,7 +48,7 @@ var path = d3.geo.path()
     .projection(projection);
 
 // Compute the bounds of a feature of interest, then derive scale & translate.
-var b = path.bounds(sf2),
+var b = path.bounds(sf),
     s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
     t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
 
@@ -63,18 +66,10 @@ projection
 
 // Focus
   svg.append("path")
-      .datum(sf2)
+      .datum(sf)
       .attr("class", "outline")
       .attr("d", path);
-
-  svg.selectAll(".zip")
-      .data(topojson.feature(sf, sf.objects.sf_zip).features)
-    .enter().append("path")
-      .attr("class", function(d) { return "zip a" + d.properties.ZCTA5CE10; })
-      .attr("d", path);
 });
-
-
 
 
 </script>
