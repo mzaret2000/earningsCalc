@@ -6,8 +6,13 @@
 
 <style>
 
+@font-face {
+    font-family: myFirstFont;
+    src: url(ClanPro-Book.otf);
+}
+
 body {
-  font-family: 'PT Sans Narrow', sans-serif;
+  font-family: myFirstFont,'PT Sans Narrow', sans-serif;
   background: #09091A;
   color: #F2F2F4;
 }
@@ -15,6 +20,10 @@ body {
 button {
   color:#09091A;
 
+}
+
+hr {
+  color: #F2F2F4;
 }
 
 .county.highlight {
@@ -26,12 +35,18 @@ button {
 .h1 {
   font-size: 400%;
   color: #F2F2F4;
-
+  text-align: center;
 }
 
 .h2 {
-  font-size: 150%;
+  font-size: 200%;
   color: #F2F2F4;
+}
+
+.h3 {
+  font-size: 200%;
+  color: #F2F2F4;
+  text-align: center;
 }
 
 .sf {
@@ -61,6 +76,7 @@ table {
 
 .choice {
   color:#09091A;
+  background: #A5E3EF;
 }
 
 .segment {
@@ -83,41 +99,52 @@ table {
 
 <div class="container">
 <div class="row">
-  <div class="h1">UBER SF Fare Calculator</div>
+  <div class="h1">UBER</div>
+  <div class="h3">Bay Area Fare Calculator</div>
+  <hr>
 </div>
 
-<div class="row"><div class="col-sm-6">
-  <div class="h2">Select Where and When Then Calculate.</div>
-  <div id="results"></div>
+
+<!--
+<div class="row">
+  <div class="col-sm-6">
+
+<ol>Instructions:
+  <li>Click hour blocks when you expect to drive or click on a common driving profile.</li>
+  <li>Click on the region where you expect to driver the most.</li>
+  <li>Click the calculate fares button</li>
+  <li>Earn cash!</li>
+</ol>
 </div>
+<div class="col-sm-6">
+
+  </div>
 </div>
+-->
 
 <div class = "row">
   <div class = "col-sm-6">
-    <div class="h2">Click where you are most likely to drive (choose 1).</div>
+    <div class="h2">1. Click when you plan to drive (or click schedule type).</div>
   </div>
-  <div class = "col-sm-4">
-    <div class="h2">Click when you plan to drive (or select schedule type).</div>
+  <div class = "col-sm-3">
+    <div class="h2">2. Click where you are most likely to drive (choose 1).</div>
   </div>
-  <div class = "col-sm-2">
-    <div class ="h2" ><button type="button">Calculate Fares!</button></div>
+  <div class = "col-sm-3">
+    <div class = "h2" margin-top: 0px;><button class="calculate" type="button">3. Calculate Fares (Click Here)!</button></div>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-sm-6">
-    <div id="mapper" class="center-content clearfix">
-    </div>
-  </div>
   <div class="col-sm-6">
     <div id="calendar">
 
       <div class="table-responsive">
         <table class="table table-condensed">
             <tbody><tr>
-              <th class="segment">Commuter Crusher</th>
-              <th class="segment">Weekend Warrior</th>
-              <th class="segment">Clear Calendar</th>
+              <th class="segment"><button type="button">Commute Cruiser</button></th>
+              <th class="segment"><button type="button">Weekend Warrior</button></th>
+              <th class="segment"><button type="button">Peak Timer</button></th>
+              <th class="segment"><button type="button">Clear Calendar</button></th>
             </tr>
         </tbody></table>
       </div>
@@ -125,14 +152,14 @@ table {
       <table class="table table-condensed" id="calendar">
   <tbody><tr>
     <th class="cheader"></th>
-    <th class="cheader">Monday</th>
-    <th class="cheader">Tuesday</th>
+    <th class="cheader">Monday   </th>
+    <th class="cheader">Tuesday  </th>
     <th class="cheader">Wednesday</th>
-    <th class="cheader">Thursday</th>
-    <th class="cheader">Friday</th>
-    <th class="cheader">Saturday</th>
-    <th class="cheader">Sunday</th>
-    <th class="cheader">Week</th>
+    <th class="cheader">Thursday </th>
+    <th class="cheader">Friday   </th>
+    <th class="cheader">Saturday </th>
+    <th class="cheader">Sunday   </th>
+    <th class="cheader">Week     </th>
   </tr>
   <tr class="totals">
     <td class="rheader">Totals</td>
@@ -152,8 +179,8 @@ table {
     <td class="cell" id="48"></td>
     <td class="cell" id="72"></td>
     <td class="cell" id="96"></td>
-    <td class="cell weekend" id="120"></td>
-    <td class="cell weekend" id="144"></td>
+    <td class="cell weekend peak" id="120"></td>
+    <td class="cell weekend peak" id="144"></td>
   </tr>
   <tr>
     <td class="rheader">1am</td>
@@ -162,8 +189,8 @@ table {
     <td class="cell" id="49"></td>
     <td class="cell" id="73"></td>
     <td class="cell" id="97"></td>
-    <td class="cell weekend" id="121"></td>
-    <td class="cell weekend" id="145"></td>
+    <td class="cell weekend peak" id="121"></td>
+    <td class="cell weekend peak" id="145"></td>
   </tr>
   <tr>
     <td class="rheader">2am</td>
@@ -172,8 +199,8 @@ table {
     <td class="cell" id="50"></td>
     <td class="cell" id="74"></td>
     <td class="cell" id="98"></td>
-    <td class="cell weekend" id="122"></td>
-    <td class="cell weekend" id="146"></td>
+    <td class="cell weekend peak" id="122"></td>
+    <td class="cell weekend peak" id="146"></td>
   </tr>
   <tr>
     <td class="rheader">3am</td>
@@ -217,31 +244,31 @@ table {
   </tr>
   <tr>
     <td class="rheader">7am</td>
-    <td class="cell commuter" id="7"></td>
-    <td class="cell commuter" id="31"></td>
-    <td class="cell commuter" id="55"></td>
-    <td class="cell commuter" id="79"></td>
-    <td class="cell commuter" id="103"></td>
+    <td class="cell commuter peak" id="7"></td>
+    <td class="cell commuter peak" id="31"></td>
+    <td class="cell commuter peak" id="55"></td>
+    <td class="cell commuter peak" id="79"></td>
+    <td class="cell commuter peak" id="103"></td>
     <td class="cell" id="127"></td>
     <td class="cell" id="151"></td>
   </tr>
   <tr>
     <td class="rheader">8am</td>
-    <td class="cell commuter" id="8"></td>
-    <td class="cell commuter" id="32"></td>
-    <td class="cell commuter" id="56"></td>
-    <td class="cell commuter" id="80"></td>
-    <td class="cell commuter" id="104"></td>
+    <td class="cell commuter peak" id="8"></td>
+    <td class="cell commuter peak" id="32"></td>
+    <td class="cell commuter peak" id="56"></td>
+    <td class="cell commuter peak" id="80"></td>
+    <td class="cell commuter peak" id="104"></td>
     <td class="cell" id="128"></td>
     <td class="cell" id="152"></td>
   </tr>
   <tr>
     <td class="rheader">9am</td>
-    <td class="cell commuter" id="9"></td>
-    <td class="cell commuter" id="33"></td>
-    <td class="cell commuter" id="57"></td>
-    <td class="cell commuter" id="81"></td>
-    <td class="cell commuter" id="105"></td>
+    <td class="cell commuter peak" id="9"></td>
+    <td class="cell commuter peak" id="33"></td>
+    <td class="cell commuter peak" id="57"></td>
+    <td class="cell commuter peak" id="81"></td>
+    <td class="cell commuter peak" id="105"></td>
     <td class="cell" id="129"></td>
     <td class="cell" id="153"></td>
   </tr>
@@ -317,32 +344,32 @@ table {
   </tr>
   <tr>
     <td class="rheader">5pm</td>
-    <td class="cell commuter" id="17"></td>
-    <td class="cell commuter" id="41"></td>
-    <td class="cell commuter" id="65"></td>
-    <td class="cell commuter" id="89"></td>
-    <td class="cell commuter weekend" id="113"></td>
-    <td class="cell weekend" id="137"></td>
+    <td class="cell commuter peak" id="17"></td>
+    <td class="cell commuter peak" id="41"></td>
+    <td class="cell commuter peak" id="65"></td>
+    <td class="cell commuter peak" id="89"></td>
+    <td class="cell commuter weekend peak" id="113"></td>
+    <td class="cell weekend peak" id="137"></td>
     <td class="cell" id="161"></td>
   </tr>
   <tr>
     <td class="rheader">6pm</td>
-    <td class="cell commuter" id="18"></td>
-    <td class="cell commuter" id="42"></td>
-    <td class="cell commuter" id="66"></td>
-    <td class="cell commuter" id="90"></td>
-    <td class="cell commuter weekend" id="114"></td>
-    <td class="cell weekend" id="138"></td>
+    <td class="cell commuter peak" id="18"></td>
+    <td class="cell commuter peak" id="42"></td>
+    <td class="cell commuter peak" id="66"></td>
+    <td class="cell commuter peak" id="90"></td>
+    <td class="cell commuter weekend peak" id="114"></td>
+    <td class="cell weekend peak" id="138"></td>
     <td class="cell" id="162"></td>
   </tr>
   <tr>
     <td class="rheader">7pm</td>
-    <td class="cell commuter" id="19"></td>
-    <td class="cell commuter" id="43"></td>
-    <td class="cell commuter" id="67"></td>
-    <td class="cell commuter" id="91"></td>
-    <td class="cell commuter weekend" id="115"></td>
-    <td class="cell weekend" id="139"></td>
+    <td class="cell commuter peak" id="19"></td>
+    <td class="cell commuter peak" id="43"></td>
+    <td class="cell commuter peak" id="67"></td>
+    <td class="cell commuter peak" id="91"></td>
+    <td class="cell commuter weekend peak" id="115"></td>
+    <td class="cell weekend peak" id="139"></td>
     <td class="cell" id="163"></td>
   </tr>
   <tr>
@@ -351,8 +378,8 @@ table {
     <td class="cell" id="44"></td>
     <td class="cell" id="68"></td>
     <td class="cell" id="92"></td>
-    <td class="cell weekend" id="116"></td>
-    <td class="cell weekend" id="140"></td>
+    <td class="cell weekend peak" id="116"></td>
+    <td class="cell weekend peak" id="140"></td>
     <td class="cell" id="164"></td>
   </tr>
   <tr>
@@ -361,8 +388,8 @@ table {
     <td class="cell" id="45"></td>
     <td class="cell" id="69"></td>
     <td class="cell" id="93"></td>
-    <td class="cell weekend" id="117"></td>
-    <td class="cell weekend" id="141"></td>
+    <td class="cell weekend peak" id="117"></td>
+    <td class="cell weekend peak" id="141"></td>
     <td class="cell" id="165"></td>
   </tr>
   <tr>
@@ -371,8 +398,8 @@ table {
     <td class="cell" id="46"></td>
     <td class="cell" id="70"></td>
     <td class="cell" id="94"></td>
-    <td class="cell weekend" id="118"></td>
-    <td class="cell weekend" id="142"></td>
+    <td class="cell weekend peak" id="118"></td>
+    <td class="cell weekend peak" id="142"></td>
     <td class="cell" id="166"></td>
   </tr>
   <tr>
@@ -381,12 +408,16 @@ table {
     <td class="cell" id="47"></td>
     <td class="cell" id="71"></td>
     <td class="cell" id="95"></td>
-    <td class="cell weekend" id="119"></td>
-    <td class="cell weekend" id="143"></td>
+    <td class="cell weekend peak" id="119"></td>
+    <td class="cell weekend peak" id="143"></td>
     <td class="cell" id="167"></td>
   </tr>
 </tbody></table>
 </div>
+    </div>
+  </div>
+    <div class="col-sm-6">
+    <div id="mapper" class="center-content clearfix">
     </div>
   </div>
 </div>
@@ -530,13 +561,12 @@ $(document).ready(function () {
 });*/
 
 $(document).ready(function(){
-    $("button").click(function(){
-        $(".cell").text("")
+    $(".calculate").click(function(){
+        $(".total").html("");
+        $(".cell").text("");
         var county = $(".highlight").attr('id');
         var hours =[];
         $(".highlight2").each(function(){ hours.push(this.id); });
-        console.log(county);
-        console.log(hours);
         var i;
         var fares = [];
         var M_fares = [];
@@ -546,6 +576,16 @@ $(document).ready(function(){
         var F_fares = [];
         var SA_fares =[];
         var SU_fares =[];
+
+        var fares_SF = [];
+        var M_fares_SF = [];
+        var T_fares_SF = [];
+        var W_fares_SF = [];
+        var TH_fares_SF =[];
+        var F_fares_SF = [];
+        var SA_fares_SF =[];
+        var SU_fares_SF =[];
+
         for (i in hours) {
           var fareComp = '<div class="choice">%data1%</div><div class="force">%data2%</div>';
           var htmlFareComp = fareComp.replace("%data1%"," $" + region_hour[county][hours[i]] + "/hr ");
@@ -553,45 +593,56 @@ $(document).ready(function(){
           $("#"+hours[i]).append(htmlFareComp);
           //.text("$"+region_hour[county][hours[i]]+"/hr" + "  ||  SF: $" + region_hour["SanFrancisco"][hours[i]]+"/hr");
           fares.push(region_hour[county][hours[i]]);
+          fares_SF.push(region_hour["SanFrancisco"][hours[i]]);
           if (hours[i] >= 0 && hours[i] < 24) {
             M_fares.push(region_hour[county][hours[i]]);
+            M_fares_SF.push(region_hour["SanFrancisco"][hours[i]]);
           }
           else if (hours[i] >= 24 && hours[i] < 48) {
             T_fares.push(region_hour[county][hours[i]]);
+            T_fares_SF.push(region_hour["SanFrancisco"][hours[i]]);
           }
           else if (hours[i] >= 48 && hours[i] < 72) {
             W_fares.push(region_hour[county][hours[i]]);
+            W_fares_SF.push(region_hour["SanFrancisco"][hours[i]]);
           }
           else if (hours[i] >= 72 && hours[i] < 96) {
             TH_fares.push(region_hour[county][hours[i]]);
+            TH_fares_SF.push(region_hour["SanFrancisco"][hours[i]]);
           }
           else if (hours[i] >= 96 && hours[i] < 120) {
             F_fares.push(region_hour[county][hours[i]]);
+            F_fares_SF.push(region_hour["SanFrancisco"][hours[i]]);
           }
           else if (hours[i] >= 120 && hours[i] < 144) {
             SA_fares.push(region_hour[county][hours[i]]);
+            SA_fares_SF.push(region_hour["SanFrancisco"][hours[i]]);
           }
           else if (hours[i] >= 144 && hours[i] < 168) {
             SU_fares.push(region_hour[county][hours[i]]);
+            SU_fares_SF.push(region_hour["SanFrancisco"][hours[i]]);
           }
         }
 
-        console.log(fares);
-        var daily_fare = function(day_fares, dow){
-          $("#" + dow).text("$" + day_fares.reduce(function(a,b) {return a + b;},0));
+        //console.log(fares);
+        var daily_fare = function(day_fares, day_fares_SF, dow){
+          var daily_fares = day_fares.reduce(function(a,b) {return a + b;},0);
+          var daily_fares_sf = day_fares_SF.reduce(function(a,b) {return a + b;},0);
+          var fareTotal = '<div class="choice">%data1%</div><div class="force">%data2%</div>';
+          var htmlFareTotal = fareTotal.replace("%data1%"," $" + daily_fares );
+          htmlFareTotal = htmlFareTotal.replace("%data2%"," $" + daily_fares_sf + " in SF.");
+          $("#"+ dow).append(htmlFareTotal);
+
         };
 
-        daily_fare(M_fares,"Monday");
-        daily_fare(T_fares,"Tuesday");
-        daily_fare(W_fares,"Wednesday");
-        daily_fare(TH_fares,"Thursday");
-        daily_fare(F_fares,"Friday");
-        daily_fare(SA_fares,"Saturday");
-        console.log(SA_fares);
-        daily_fare(SU_fares,"Sunday");
-        console.log(SU_fares);
-        daily_fare(fares,"Grand");
-        console.log(fares);
+        daily_fare(M_fares,M_fares_SF,"Monday");
+        daily_fare(T_fares,T_fares_SF,"Tuesday");
+        daily_fare(W_fares,W_fares_SF,"Wednesday");
+        daily_fare(TH_fares,TH_fares_SF,"Thursday");
+        daily_fare(F_fares,F_fares_SF,"Friday");
+        daily_fare(SA_fares,SA_fares_SF,"Saturday");
+        daily_fare(SU_fares,SU_fares_SF,"Sunday");
+        daily_fare(fares,fares_SF,"Grand");
     });
 });
 
@@ -599,7 +650,7 @@ $(document).ready(function(){
 
 $(document).ready(function(){
     $(".segment").click(function(){
-      if ($(this).text() === "Commuter Crusher") {
+      if ($(this).text() === "Commute Cruiser") {
         $(".cell").removeClass("highlight2");
         $(".commuter").addClass("highlight2");
 
@@ -608,6 +659,12 @@ $(document).ready(function(){
         $(".cell").removeClass("highlight2");
         $(".weekend").addClass("highlight2");
       }
+
+      else if ($(this).text() === "Peak Timer") {
+        $(".cell").removeClass("highlight2");
+        $(".peak").addClass("highlight2");
+      }
+
       else if ($(this).text() === "Clear Calendar") {
         $(".cell").removeClass("highlight2");
         $(".choice").text("");
