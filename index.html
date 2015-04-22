@@ -149,17 +149,17 @@ table {
         </tbody></table>
       </div>
     <div class="table-responsive">
-      <table class="table table-condensed" id="calendar">
+      <table class="table" id="calendar">
   <tbody><tr>
     <th class="cheader"></th>
-    <th class="cheader">Monday   </th>
-    <th class="cheader">Tuesday  </th>
-    <th class="cheader">Wednesday</th>
-    <th class="cheader">Thursday </th>
-    <th class="cheader">Friday   </th>
-    <th class="cheader">Saturday </th>
-    <th class="cheader">Sunday   </th>
-    <th class="cheader">Week     </th>
+    <th class="cheader">Mon</th>
+    <th class="cheader">Tues</th>
+    <th class="cheader">Wed</th>
+    <th class="cheader">Thurs</th>
+    <th class="cheader">Fri</th>
+    <th class="cheader">Sat</th>
+    <th class="cheader">Sun</th>
+    <th class="cheader">Week</th>
   </tr>
   <tr class="totals">
     <td class="rheader">Totals</td>
@@ -589,8 +589,14 @@ $(document).ready(function(){
         for (i in hours) {
           var fareComp = '<div class="choice">%data1%</div><div class="force">%data2%</div>';
           var htmlFareComp = fareComp.replace("%data1%"," $" + region_hour[county][hours[i]] + "/hr ");
-          htmlFareComp = htmlFareComp.replace("%data2%"," $" + region_hour["SanFrancisco"][hours[i]] + "/hr in SF");
+          if (county == "SanFrancisco") {
+            htmlFareComp = htmlFareComp.replace("%data2%","");
+          }
+          else if (county !== "SanFrancsco") {
+            htmlFareComp = htmlFareComp.replace("%data2%","VS $" + region_hour["SanFrancisco"][hours[i]] + "/hr in SF");
+          }
           $("#"+hours[i]).append(htmlFareComp);
+
           //.text("$"+region_hour[county][hours[i]]+"/hr" + "  ||  SF: $" + region_hour["SanFrancisco"][hours[i]]+"/hr");
           fares.push(region_hour[county][hours[i]]);
           fares_SF.push(region_hour["SanFrancisco"][hours[i]]);
@@ -626,11 +632,17 @@ $(document).ready(function(){
 
         //console.log(fares);
         var daily_fare = function(day_fares, day_fares_SF, dow){
+          var county = $(".highlight").attr('id');
           var daily_fares = day_fares.reduce(function(a,b) {return a + b;},0);
           var daily_fares_sf = day_fares_SF.reduce(function(a,b) {return a + b;},0);
           var fareTotal = '<div class="choice">%data1%</div><div class="force">%data2%</div>';
           var htmlFareTotal = fareTotal.replace("%data1%"," $" + daily_fares );
-          htmlFareTotal = htmlFareTotal.replace("%data2%"," $" + daily_fares_sf + " in SF.");
+          if (county == "SanFrancisco") {
+            htmlFareTotal = htmlFareTotal.replace("%data2%","");
+          }
+          else if (county !== "SanFrancsco") {
+            htmlFareTotal = htmlFareTotal.replace("%data2%","VS $" + daily_fares_sf + " in SF.");
+          }
           $("#"+ dow).append(htmlFareTotal);
 
         };
