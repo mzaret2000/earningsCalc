@@ -24,9 +24,14 @@ body {
 
 button {
   color:#09091A;
-  height: 100%;
 
 }
+
+.calculate {
+  font-size:110%;
+  font-family: myFirstFont,'PT Sans Narrow', sans-serif;
+}
+
 
 .refresh {
   color:red;
@@ -152,7 +157,7 @@ table {
     <div class="h2">2. Touch hour blocks in which you plan to drive (or click schedule type).</div>
   </div>
   <div class = "col-sm-4">
-    <div class = "h2" margin-top: 0px;><button class="calculate" type="button">3. Calculate Fares (Click Here)!</button></div>
+    <div class = "h2" margin-top: 0px;><button class="btn btn-default calculate" type="button">3. Calculate Fares (Click Here)!</button></div>
   </div>
 </div>
 
@@ -167,10 +172,10 @@ table {
       <div class="table-responsive">
         <table class="table table-condensed">
             <tbody><tr>
-              <th class="segment"><button type="button">Rush Hour</button></th>
-              <th class="segment"><button type="button">Weekend Warrior</button></th>
-              <th class="segment"><button type="button">Full Time</button></th>
-              <th class="segment"><button type="button" class="refresh">Refresh Calendar</button></th>
+              <th ><button class="btn btn-default" type="button">Rush Hour</button></th>
+              <th ><button class="btn btn-default"type="button">Weekend Warrior</button></th>
+              <th ><button class="btn btn-default"type="button">Full Time</button></th>
+              <th ><button class="btn btn-default"type="button" class="refresh">Refresh Calendar</button></th>
             </tr>
         </tbody></table>
       </div>
