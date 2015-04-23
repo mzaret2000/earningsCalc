@@ -17,9 +17,24 @@ body {
   color: #F2F2F4;
 }
 
+.modal-header {
+  font-family: myFirstFont,'PT Sans Narrow', sans-serif;
+  color:#09091A;
+}
+
 button {
   color:#09091A;
 
+}
+
+.refresh {
+  color:red;
+}
+
+p {
+  font-family: myFirstFont,'PT Sans Narrow', sans-serif;
+  color: #09091A;
+  font-size: 60%;
 }
 
 hr {
@@ -39,12 +54,12 @@ hr {
 }
 
 .h2 {
-  font-size: 200%;
+  font-size: 150%;
   color: #F2F2F4;
 }
 
 .h3 {
-  font-size: 200%;
+  font-size: 150%;
   color: #F2F2F4;
   text-align: center;
 }
@@ -70,6 +85,12 @@ table {
   color: #F2F2F4;
 }
 
+.modal-table {
+  font-size: 75%;
+  margin-bottom: 5px;
+  color: #09091A;
+}
+
 .force {
   background-color:#09091A;
 }
@@ -84,7 +105,7 @@ table {
 }
 
 .cell {
-  font-size:125%;
+  font-size:100%;
   border: 1px solid #3A3A48;
 }
 
@@ -124,10 +145,10 @@ table {
 
 <div class = "row">
   <div class = "col-sm-6">
-    <div class="h2">1. Click when you plan to drive (or click schedule type).</div>
+    <div class="h2">1. Touch where you are most likely to drive (choose 1).</div>
   </div>
   <div class = "col-sm-3">
-    <div class="h2">2. Click where you are most likely to drive (choose 1).</div>
+    <div class="h2">2. Touch hour blocks in which you plan to drive (or click schedule type).</div>
   </div>
   <div class = "col-sm-3">
     <div class = "h2" margin-top: 0px;><button class="calculate" type="button">3. Calculate Fares (Click Here)!</button></div>
@@ -135,16 +156,20 @@ table {
 </div>
 
 <div class="row">
+     <div class="col-sm-6">
+    <div id="mapper" class="center-content clearfix">
+    </div>
+  </div>
   <div class="col-sm-6">
     <div id="calendar">
 
       <div class="table-responsive">
         <table class="table table-condensed">
             <tbody><tr>
-              <th class="segment"><button type="button">Commute Cruiser</button></th>
+              <th class="segment"><button type="button">Rush Hour</button></th>
               <th class="segment"><button type="button">Weekend Warrior</button></th>
-              <th class="segment"><button type="button">Peak Timer</button></th>
-              <th class="segment"><button type="button">Clear Calendar</button></th>
+              <th class="segment"><button type="button">Full Time</button></th>
+              <th class="segment"><button type="button" class="refresh">Refresh Calendar</button></th>
             </tr>
         </tbody></table>
       </div>
@@ -416,11 +441,82 @@ table {
 </div>
     </div>
   </div>
-    <div class="col-sm-6">
-    <div id="mapper" class="center-content clearfix">
-    </div>
-  </div>
 </div>
+    <div id="SFModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="gridSystemModalLabel">Weekly Gross Fares Estimate *</h4>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+              <div class="row">
+              <div class="col-md-12">
+              <table class="table table-condensed modal-table" id="calendar_mod_sf">
+                <tbody>
+                  <th class="cheader cname"></th>
+                  <th class="cheader" id="grand_title"></th>
+                  <th class="cheader compare invisible">Compare to SF Gross Fare Estimate</th>
+                  <tr class="totals">
+                    <td class="section">Weekly Total</td>
+                    <td class="total" id="Grand_M"></td>
+                    <td class="total compare invisible" id="Grand_M_SF"></td>
+                  </tr>
+                  <tr class="totals">
+                    <td class="section">Monday</td>
+                    <td class="total" id="Monday_M"></td>
+                    <td class="total compare invisible" id="Monday_M_SF"></td>
+                  </tr>
+                  <tr class="totals">
+                    <td class="section">Tuesday</td>
+                    <td class="total" id="Tuesday_M"></td>
+                    <td class="total compare invisible" id="Tuesday_M_SF"></td>
+                  </tr>
+                  <tr class="totals">
+                    <td class="section">Wednesday</td>
+                    <td class="total" id="Wednesday_M"></td>
+                    <td class="total compare invisible" id="Wednesday_M_SF"></td>
+                  </tr>
+                  <tr class="totals">
+                    <td class="section">Thursday</td>
+                    <td class="total" id="Thursday_M"></td>
+                    <td class="total compare invisible" id="Thursday_M_SF"></td>
+                  </tr>
+                  <tr class="totals">
+                    <td class="section">Friday</td>
+                    <td class="total" id="Friday_M"></td>
+                    <td class="total compare invisible" id="Friday_M_SF"></td>
+                  </tr>
+                  <tr class="totals">
+                    <td class="section">Saturday</td>
+                    <td class="total" id="Saturday_M"></td>
+                    <td class="total compare invisible" id="Saturday_M_SF"></td>
+                  </tr>
+                  <tr class="totals">
+                    <td class="section">Sunday</td>
+                    <td class="total" id="Sunday_M"></td>
+                    <td class="total compare invisible" id="Sunday_M_SF"></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              </div>
+            </div>
+            <div class="row">
+              <p>*Fares before Uber's Fee</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default  invisible earn">Earn More!</button>
+          <button type="button" class="btn btn-default closer" data-dismiss="modal">Close</button>
+
+        </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>
@@ -593,7 +689,8 @@ $(document).ready(function(){
             htmlFareComp = htmlFareComp.replace("%data2%","");
           }
           else if (county !== "SanFrancsco") {
-            htmlFareComp = htmlFareComp.replace("%data2%","VS $" + region_hour["SanFrancisco"][hours[i]] + "/hr in SF");
+            htmlFareComp = htmlFareComp.replace("%data2%","");
+            //htmlFareComp = htmlFareComp.replace("%data2%","VS $" + region_hour["SanFrancisco"][hours[i]] + "/hr in SF");
           }
           $("#"+hours[i]).append(htmlFareComp);
 
@@ -635,15 +732,20 @@ $(document).ready(function(){
           var county = $(".highlight").attr('id');
           var daily_fares = day_fares.reduce(function(a,b) {return a + b;},0);
           var daily_fares_sf = day_fares_SF.reduce(function(a,b) {return a + b;},0);
-          var fareTotal = '<div class="choice">%data1%</div><div class="force">%data2%</div>';
+          var fareTotal = '<div class="choice">%data1%</div>';
           var htmlFareTotal = fareTotal.replace("%data1%"," $" + daily_fares );
+          var htmlFareTotalSF = fareTotal.replace("%data1%"," $" + daily_fares_sf );
+
           if (county == "SanFrancisco") {
             htmlFareTotal = htmlFareTotal.replace("%data2%","");
           }
           else if (county !== "SanFrancsco") {
-            htmlFareTotal = htmlFareTotal.replace("%data2%","VS $" + daily_fares_sf + " in SF.");
+            htmlFareTotal = htmlFareTotal.replace("%data2%","");
+            //htmlFareTotal = htmlFareTotal.replace("%data2%","VS $" + daily_fares_sf + " in SF.");
           }
           $("#"+ dow).append(htmlFareTotal);
+          $("#"+ dow +"_M").append(htmlFareTotal);
+          $("#"+ dow +"_M_SF").append(htmlFareTotalSF);
 
         };
 
@@ -655,14 +757,40 @@ $(document).ready(function(){
         daily_fare(SA_fares,SA_fares_SF,"Saturday");
         daily_fare(SU_fares,SU_fares_SF,"Sunday");
         daily_fare(fares,fares_SF,"Grand");
+
+
+
+
+
+
+          $("#SFModal").modal('show');
+          $("#grand_title").text("Gross Fare Estimate ("+county+").")
+          $(document).ready(function(){
+          if (county!=="SanFrancisco") {
+            $(".earn").removeClass("invisible")
+            }
+          $(".earn").click(function(){
+            $(".compare").removeClass("invisible");
+          });
+        });
+
+        $(document).ready(function(){
+          $(".closer").click(function(){
+            $(".compare").addClass("invisible");
+            $(".earn").addClass("invisible")
+          });
+        });
+
     });
 });
 
 
 
+
+
 $(document).ready(function(){
     $(".segment").click(function(){
-      if ($(this).text() === "Commute Cruiser") {
+      if ($(this).text() === "Rush Hour") {
         $(".cell").removeClass("highlight2");
         $(".commuter").addClass("highlight2");
 
@@ -672,12 +800,12 @@ $(document).ready(function(){
         $(".weekend").addClass("highlight2");
       }
 
-      else if ($(this).text() === "Peak Timer") {
+      else if ($(this).text() === "Full Time") {
         $(".cell").removeClass("highlight2");
         $(".peak").addClass("highlight2");
       }
 
-      else if ($(this).text() === "Clear Calendar") {
+      else if ($(this).text() === "Refresh Calendar") {
         $(".cell").removeClass("highlight2");
         $(".choice").text("");
         $(".force").text("");
