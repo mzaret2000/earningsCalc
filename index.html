@@ -25,7 +25,6 @@ body {
 button {
   color:#09091A;
   height: 100%;
-  width: 100%;
 
 }
 
@@ -88,7 +87,7 @@ table {
 }
 
 .modal-table {
-  font-size: 75%;
+  font-size: 125%;
   margin-bottom: 5px;
   color: #09091A;
 }
@@ -524,13 +523,7 @@ table {
 <script>
 
 var width = document.getElementById("instruction").clientWidth || document.getElementById("instruction").offsetWidth;
-var height = document.getElementById("calendar").clientHeight*.7  || document.getElementById("calendar").offsetHeight*.7;
-
-$( window ).resize(function() {
-  var width = document.getElementById("calendar").clientWidth || document.getElementById("calendar").offsetWidth;
-  var height = document.getElementById("calendar").clientHeight*.9 || document.getElementById("calendar").offsetHeight*.9;
-
-});
+var height = document.getElementById("calendar").clientHeight*.9  || document.getElementById("calendar").offsetHeight*.9;
 
 var svg = d3.select("#mapper").append("svg")
     .attr("width", width)
