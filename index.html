@@ -144,7 +144,7 @@ table {
 -->
 
 <div class = "row">
-  <div class = "col-sm-4">
+  <div class = "col-sm-4" id="instruction">
     <div class="h2">1. Touch where you are most likely to drive (choose 1).</div>
   </div>
   <div class = "col-sm-4">
@@ -521,8 +521,8 @@ table {
 
 <script>
 
-var width = document.getElementById("calendar").clientWidth || document.getElementById("calendar").offsetWidth;
-var height = document.getElementById("calendar").clientHeight*.9  || document.getElementById("calendar").offsetHeight*.9;
+var width = document.getElementById("instruction").clientWidth || document.getElementById("instruction").offsetWidth;
+var height = document.getElementById("calendar").clientHeight*.7  || document.getElementById("calendar").offsetHeight*.7;
 
 $( window ).resize(function() {
   var width = document.getElementById("calendar").clientWidth || document.getElementById("calendar").offsetWidth;
