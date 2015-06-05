@@ -13,8 +13,18 @@
 
 body {
   font-family: myFirstFont,'PT Sans Narrow', sans-serif;
-  background: #09091A;
+
   color: #F2F2F4;
+
+}
+
+th,td {
+  text-align: center;
+}
+
+.step {
+  font-weight: bold;
+
 }
 
 .modal-header {
@@ -24,12 +34,31 @@ body {
 
 button {
   color:#09091A;
+  background-color: #A5E3EF;
+
 
 }
 
+.btn-default {
+  color:#09091A;
+  background-color: #A5E3EF;
+}
+
 .calculate {
-  font-size:110%;
-  font-family: myFirstFont,'PT Sans Narrow', sans-serif;
+  font-size:95%;
+  font-family: sans-serif;
+  color:#C0C0C8;
+  background-color: #aa0000;
+  font-weight: bold
+
+}
+
+.sidebar {
+  color:#C0C0C8;
+  background-color: #aa0000;
+  white-space: normal;
+  text-align: middle;
+
 }
 
 
@@ -40,7 +69,12 @@ button {
 p {
   font-family: myFirstFont,'PT Sans Narrow', sans-serif;
   color: #09091A;
-  font-size: 60%;
+  font-size: 100%;
+  text-align: center;
+}
+
+btn-group {
+    text-align: center;
 }
 
 hr {
@@ -55,19 +89,37 @@ hr {
 
 .h1 {
   font-size: 400%;
-  color: #F2F2F4;
+  color: #09091A;
   text-align: center;
+font-family: myFirstFont,'PT Sans Narrow', sans-serif;
 }
+
 
 .h2 {
   font-size: 150%;
-  color: #F2F2F4;
+  color: #09091A;
+font-family: myFirstFont,'PT Sans Narrow', sans-serif;
+text-align: center;
+}
+
+.h4 {
+  font-size: 100%;
+  color: #09091A;
+font-family: myFirstFont,'PT Sans Narrow', sans-serif;
+text-align: center;
+}
+
+ol {
+color: #09091A;
+
 }
 
 .h3 {
   font-size: 150%;
-  color: #F2F2F4;
+  color: #09091A;
   text-align: center;
+  font-family: sans-serif;
+
 }
 
 .sf {
@@ -86,9 +138,10 @@ hr {
 }
 
 table {
-  font-size: 75%;
+  font-size: 100%;
   margin-bottom: 5px;
-  color: #F2F2F4;
+  color: #09091A;
+font-family: myFirstFont,'PT Sans Narrow', sans-serif;
 }
 
 .modal-table {
@@ -98,17 +151,15 @@ table {
 }
 
 .force {
-  background-color:#09091A;
+  background: #A5E3EF;
 }
 
 .choice {
   color:#09091A;
-  background: #A5E3EF;
+
 }
 
-.segment {
-  font-size: 150%;
-}
+
 
 .cell {
   font-size:100%;
@@ -120,65 +171,72 @@ table {
 <body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script src="dph.json"></script>
+<script src="https://s3.amazonaws.com/uploads.hipchat.com/17604/686721/dFeIkWmSgj84odT/nyc_dph.json"></script>
+
 
 <div class="container">
 <div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
   <div class="h1">UBER</div>
-  <div class="h3">Bay Area Fare Calculator</div>
+  <div class="h2">New York Area Schedule Simulator</div>
+  <div class="h2">Follow the directions below to simulate your potential Uber fares!</div>
+</div>
+  <br>
+</div>
+
+
+
+
+
   <hr>
-</div>
 
-
-<!--
-<div class="row">
-  <div class="col-sm-6">
-
-<ol>Instructions:
-  <li>Click hour blocks when you expect to drive or click on a common driving profile.</li>
-  <li>Click on the region where you expect to driver the most.</li>
-  <li>Click the calculate fares button</li>
-  <li>Earn cash!</li>
-</ol>
-</div>
-<div class="col-sm-6">
-
-  </div>
-</div>
--->
 
 <div class = "row">
-  <div class = "col-sm-4" id="instruction">
-    <div class="h2">1. Touch where you are most likely to drive (choose 1).</div>
+  <div class = "col-sm-12" id="instruction">
+    <div class="h3 step">Where do you want to drive? Click the county below.</div>
+    <div class="h4">Manhattan is Pre-Selected</div>
   </div>
-  <div class = "col-sm-4">
-    <div class="h2">2. Touch hour blocks in which you plan to drive (or click schedule type).</div>
-  </div>
-  <div class = "col-sm-4">
-    <div class = "h2" margin-top: 0px;><button class="btn btn-default calculate" type="button">3. Calculate Fares (Click Here)!</button></div>
+</div>
+<div class = "row">
+  <div class = "col-sm-12">
+        <div id="mapper" class="center-content clearfix">
+    </div>
   </div>
 </div>
 
-<div class="row">
-     <div class="col-sm-4">
-    <div id="mapper" class="center-content clearfix">
-    </div>
+<div class = "row">
+  <div class = "col-sm-12">
+    <div class="h3 step"><b>When do you want to drive?</b></div>
+    <div class="h2">Click as many squares as you’d like below <br> to populate your preferred schedule (by hour & day). <br> <br> Not sure when you want to drive? <br><br> Check out one of our sample schedules below <br> by clicking the name of the sample schedule.</div>
   </div>
-  <div class="col-sm-8">
-    <div id="calendar">
+  </div>
+</div>
+</div>
 
-      <div class="table-responsive">
-        <table class="table table-condensed">
-            <tbody><tr>
-              <th ><button class="btn btn-default" type="button">Rush Hour</button></th>
-              <th ><button class="btn btn-default"type="button">Weekend Warrior</button></th>
-              <th ><button class="btn btn-default"type="button">Full Time</button></th>
-              <th ><button class="btn btn-default"type="button" class="refresh">Refresh Calendar</button></th>
-            </tr>
-        </tbody></table>
-      </div>
+
+<div class = "row">
+
+  <div class = "col-sm-12">
+        <div id="calendar">
+          <div class="h4">
+          <div class="btn-group btn-group-md">
+            <button class="btn btn-default segment" type="button">Rush Hour</button>
+            <button class="btn btn-default segment"type="button">Weekend Warrior</button>
+            <button class="btn btn-default segment"type="button">Full Time</button>
+          </div>
+
+          <br><br>
+
+          <div class="btn-group btn-group-md">
+            <button class="btn btn-default calculate" type="button">ClICK HERE to <br> Calculate Weekly <br> Fares</button>
+            <button class="btn btn-default  segment sidebar" type="button" class="refresh">Refresh Calendar</button>
+          </div>
+          <div>
+
+
+
     <div class="table-responsive">
       <table class="table" id="calendar">
   <tbody><tr>
@@ -190,18 +248,7 @@ table {
     <th class="cheader">Fri</th>
     <th class="cheader">Sat</th>
     <th class="cheader">Sun</th>
-    <th class="cheader">Week</th>
-  </tr>
-  <tr class="totals">
-    <td class="rheader">Totals</td>
-    <td class="total" id="Monday"></td>
-    <td class="total" id="Tuesday"></td>
-    <td class="total" id="Wednesday"></td>
-    <td class="total" id="Thursday"></td>
-    <td class="total" id="Friday"></td>
-    <td class="total" id="Saturday"></td>
-    <td class="total" id="Sunday"></td>
-    <td class="total" id="Grand"></td>
+    <th class="cheader" width="5%"></th>
   </tr>
   <tr>
     <td class="rheader">12am</td>
@@ -242,7 +289,7 @@ table {
     <td class="cell" id="99"></td>
     <td class="cell" id="123"></td>
     <td class="cell" id="147"></td>
-  </tr>
+    </tr>
   <tr>
     <td class="rheader">4am</td>
     <td class="cell" id="4"></td>
@@ -447,7 +494,19 @@ table {
 </div>
     </div>
   </div>
+
 </div>
+
+<div class = "row">
+  <div class = "col-sm-12">
+        <div class = "h3" margin-top: 0px;><button class="btn btn-default calculate" type="button">Calculate Weekly Total</button></div>
+  </div>
+</div>
+
+
+
+
+
     <div id="SFModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -463,7 +522,7 @@ table {
                 <tbody>
                   <th class="cheader cname"></th>
                   <th class="cheader" id="grand_title"></th>
-                  <th class="cheader compare invisible">Compare to SF Gross Fare Estimate</th>
+                  <th class="cheader compare invisible">Drive in San Francisco to Earn More!</th>
                   <tr class="totals">
                     <td class="section">Weekly Total</td>
                     <td class="total" id="Grand_M"></td>
@@ -515,7 +574,6 @@ table {
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default  invisible earn">Earn More!</button>
           <button type="button" class="btn btn-default closer" data-dismiss="modal">Close</button>
 
         </div>
@@ -527,15 +585,19 @@ table {
 
 <script>
 
-var width = document.getElementById("instruction").clientWidth || document.getElementById("instruction").offsetWidth;
-var height = document.getElementById("calendar").clientHeight*.9  || document.getElementById("calendar").offsetHeight*.9;
+var top_region = "Manhattan";
+
+var width = document.getElementById("instruction").clientWidth*.9 || document.getElementById("instruction").offsetWidth*.9;
+var height = document.getElementById("calendar").clientHeight*.5  || document.getElementById("calendar").offsetHeight*.5;
 
 var svg = d3.select("#mapper").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-d3.json("cacogeo.json", function(error, sf) {
-  var sf2 = topojson.feature(sf, sf.objects.cacogeo);
+
+
+d3.json("https://s3.amazonaws.com/uploads.hipchat.com/17604/686721/aRqoxf7OivRrVfL/nyc2.json", function(error, area) {
+  var area2 = topojson.feature(area, area.objects.nyc);
 
 /* ******************* AUTOCENTERING ************************* */
 // Create a unit projection.
@@ -548,7 +610,7 @@ var path = d3.geo.path()
     .projection(projection);
 
 // Compute the bounds of a feature of interest, then derive scale & translate.
-var b = path.bounds(sf2),
+var b = path.bounds(area2),
     s = .95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
     t = [(width - s * (b[1][0] + b[0][0])) / 2, (height - s * (b[1][1] + b[0][1])) / 2];
 
@@ -560,25 +622,25 @@ projection
 
 // Landmass
   svg.append("path")
-      .datum(sf)
+      .datum(area)
       .attr("class", "feature")
       .attr("d", path);
 
 // Focus
   svg.append("path")
-      .datum(sf2)
+      .datum(area2)
       .attr("class", "outline")
       .attr("d", path);
 
   svg.selectAll(".county")
-      .data(topojson.feature(sf, sf.objects.cacogeo).features)
+      .data(topojson.feature(area, area.objects.nyc).features)
     .enter().append("path")
       .attr("class", function(d) { return "county "; })
       .attr("id", function(d) { return d.properties.name; })
       .attr("d", path);
 
     svg.selectAll("text")
-    .data(topojson.feature(sf, sf.objects.cacogeo).features)
+    .data(topojson.feature(area, area.objects.nyc).features)
     .enter()
     .append("svg:text")
     .text(function(d){
@@ -593,7 +655,8 @@ projection
     .attr("text-anchor","middle")
     .attr("fill","#1FBAD6")
 
-    svg.selectAll("text").filter(function(d) { return d.properties.name.match('SanFrancisco') }).attr("class","sf").attr("fill","#1FBAD6");
+    svg.selectAll("text").filter(function(d) { return d.properties.name.match(top_region) }).attr("class","sf").attr("fill","#1FBAD6");
+    svg.selectAll("#"+top_region).filter(function(d) { return d.properties.name.match(top_region) }).attr("class","county highlight");
 
     $(".county").click(function(){
       var cclass = $(this).attr("class")
@@ -604,11 +667,13 @@ projection
        else {
         $(".county").attr("class", "county");
         $(this).attr("class", "county highlight");
+        $(".cell").text("");
+        addVals(".highlight",".highlight2");
       }
 
-
-
 });
+
+
     $("text").click(function(){
     var textbox = $(this).text();
     var elem = $("#" + textbox);
@@ -620,23 +685,29 @@ projection
        else {
         $(".county").attr("class", "county");
         elem.attr("class", "county highlight");
+        $(".cell").text("");
+        addVals(".highlight",".highlight2");
       }
 
 });
 
+$()
+
 });
 
 $(document).ready(function () {
-    var $box = $(".cell").mousedown(function () {
+    $(".cell").mousedown(function () {
+        var hour = $(this).attr('id');
+        var county = $(".highlight").attr('id');
         $(this).toggleClass("highlight2");
         var flag = $(this).hasClass("highlight2")
-        $box.on("mouseenter.highlight2", function () {
-            $(this).toggleClass("highlight2", flag);
-        });
+        if (flag===true) {
+          $(this).append("$" + region_hour[county][hour] + "/hr");
+        }
+        else if (flag===false) {
+          $(this).text("");
+        }
     });
-    $(document).mouseup(function () {
-        $box.off("mouseenter.highlight2")
-    })
 });
 
 /*$(document).ready(function(){
@@ -648,7 +719,7 @@ $(document).ready(function () {
         console.log(hours);
         $("#results").append("<p></p>").text("Counties: " + county + ", Hour IDs: " + hours );
         var i;
-        for (i in hours) {
+        for (i = 0; i <= hours.length; i++) {
           console.log($("#"+i).text(region_hour[county][i]));
 
         }
@@ -682,48 +753,55 @@ $(document).ready(function(){
         var SA_fares_SF =[];
         var SU_fares_SF =[];
 
-        for (i in hours) {
+        for (i=0; i<= hours.length; i++) {
+          if (i === "find") {
+            i = hours.length;
+          }
+          console.log(i);
+
           var fareComp = '<div class="choice">%data1%</div><div class="force">%data2%</div>';
           var htmlFareComp = fareComp.replace("%data1%"," $" + region_hour[county][hours[i]] + "/hr ");
-          if (county == "SanFrancisco") {
+          if (county == top_region) {
             htmlFareComp = htmlFareComp.replace("%data2%","");
           }
-          else if (county !== "SanFrancsco") {
+          else if (county !== top_region) {
             htmlFareComp = htmlFareComp.replace("%data2%","");
             //htmlFareComp = htmlFareComp.replace("%data2%","VS $" + region_hour["SanFrancisco"][hours[i]] + "/hr in SF");
           }
           $("#"+hours[i]).append(htmlFareComp);
 
           //.text("$"+region_hour[county][hours[i]]+"/hr" + "  ||  SF: $" + region_hour["SanFrancisco"][hours[i]]+"/hr");
-          fares.push(region_hour[county][hours[i]]);
-          fares_SF.push(region_hour["SanFrancisco"][hours[i]]);
+          if (hours[i] >= 0 && hours[i] < 168) {
+            fares.push(region_hour[county][hours[i]]);
+            fares_SF.push(region_hour[top_region][hours[i]]);
+          }
           if (hours[i] >= 0 && hours[i] < 24) {
             M_fares.push(region_hour[county][hours[i]]);
-            M_fares_SF.push(region_hour["SanFrancisco"][hours[i]]);
+            M_fares_SF.push(region_hour[top_region][hours[i]]);
           }
           else if (hours[i] >= 24 && hours[i] < 48) {
             T_fares.push(region_hour[county][hours[i]]);
-            T_fares_SF.push(region_hour["SanFrancisco"][hours[i]]);
+            T_fares_SF.push(region_hour[top_region][hours[i]]);
           }
           else if (hours[i] >= 48 && hours[i] < 72) {
             W_fares.push(region_hour[county][hours[i]]);
-            W_fares_SF.push(region_hour["SanFrancisco"][hours[i]]);
+            W_fares_SF.push(region_hour[top_region][hours[i]]);
           }
           else if (hours[i] >= 72 && hours[i] < 96) {
             TH_fares.push(region_hour[county][hours[i]]);
-            TH_fares_SF.push(region_hour["SanFrancisco"][hours[i]]);
+            TH_fares_SF.push(region_hour[top_region][hours[i]]);
           }
           else if (hours[i] >= 96 && hours[i] < 120) {
             F_fares.push(region_hour[county][hours[i]]);
-            F_fares_SF.push(region_hour["SanFrancisco"][hours[i]]);
+            F_fares_SF.push(region_hour[top_region][hours[i]]);
           }
           else if (hours[i] >= 120 && hours[i] < 144) {
             SA_fares.push(region_hour[county][hours[i]]);
-            SA_fares_SF.push(region_hour["SanFrancisco"][hours[i]]);
+            SA_fares_SF.push(region_hour[top_region][hours[i]]);
           }
           else if (hours[i] >= 144 && hours[i] < 168) {
             SU_fares.push(region_hour[county][hours[i]]);
-            SU_fares_SF.push(region_hour["SanFrancisco"][hours[i]]);
+            SU_fares_SF.push(region_hour[top_region][hours[i]]);
           }
         }
 
@@ -733,17 +811,18 @@ $(document).ready(function(){
           var daily_fares = day_fares.reduce(function(a,b) {return a + b;},0);
           var daily_fares_sf = day_fares_SF.reduce(function(a,b) {return a + b;},0);
           var fareTotal = '<div class="choice">%data1%</div>';
+          var fareTotalSF = '<div class="force">%data1%</div>';
           var htmlFareTotal = fareTotal.replace("%data1%"," $" + daily_fares );
-          var htmlFareTotalSF = fareTotal.replace("%data1%"," $" + daily_fares_sf );
+          var htmlFareTotalSF = fareTotalSF.replace("%data1%"," $" + daily_fares_sf );
 
-          if (county == "SanFrancisco") {
+          if (county == top_region) {
             htmlFareTotal = htmlFareTotal.replace("%data2%","");
           }
-          else if (county !== "SanFrancsco") {
+          else if (county !== top_region) {
             htmlFareTotal = htmlFareTotal.replace("%data2%","");
             //htmlFareTotal = htmlFareTotal.replace("%data2%","VS $" + daily_fares_sf + " in SF.");
           }
-          $("#"+ dow).append(htmlFareTotal);
+//          $("#"+ dow).append(htmlFareTotal);
           $("#"+ dow +"_M").append(htmlFareTotal);
           $("#"+ dow +"_M_SF").append(htmlFareTotalSF);
 
@@ -756,6 +835,7 @@ $(document).ready(function(){
         daily_fare(F_fares,F_fares_SF,"Friday");
         daily_fare(SA_fares,SA_fares_SF,"Saturday");
         daily_fare(SU_fares,SU_fares_SF,"Sunday");
+
         daily_fare(fares,fares_SF,"Grand");
 
 
@@ -766,18 +846,14 @@ $(document).ready(function(){
           $("#SFModal").modal('show');
           $("#grand_title").text("Gross Fare Estimate ("+county+").")
           $(document).ready(function(){
-          if (county!=="SanFrancisco") {
-            $(".earn").removeClass("invisible")
+          if (county!==top_region) {
+            //$(".compare").removeClass("invisible")
             }
-          $(".earn").click(function(){
-            $(".compare").removeClass("invisible");
-          });
         });
 
         $(document).ready(function(){
           $(".closer").click(function(){
             $(".compare").addClass("invisible");
-            $(".earn").addClass("invisible")
           });
         });
 
@@ -785,28 +861,42 @@ $(document).ready(function(){
 });
 
 
-
-
+var addVals = function(class1,class2){
+  var county = $(class1).attr('id');
+  var hours =[];
+  $(class2).each(function(){ hours.push(this.id); });
+  var i;
+  for (i=0; i<= hours.length; i++) {
+    $("#"+hours[i]).append("$" + region_hour[county][hours[i]] + "/hr");
+  }
+};
 
 $(document).ready(function(){
     $(".segment").click(function(){
       if ($(this).text() === "Rush Hour") {
         $(".cell").removeClass("highlight2");
+        $(".cell").text("");
         $(".commuter").addClass("highlight2");
+        addVals(".highlight",".highlight2");
 
       }
       else if ($(this).text() === "Weekend Warrior") {
         $(".cell").removeClass("highlight2");
+        $(".cell").text("");
         $(".weekend").addClass("highlight2");
+        addVals(".highlight",".highlight2");
       }
 
       else if ($(this).text() === "Full Time") {
         $(".cell").removeClass("highlight2");
+        $(".cell").text("");
         $(".peak").addClass("highlight2");
+        addVals(".highlight",".highlight2");
       }
 
       else if ($(this).text() === "Refresh Calendar") {
         $(".cell").removeClass("highlight2");
+        $(".cell").text("");
         $(".choice").text("");
         $(".force").text("");
         $("div").removeClass("force");
@@ -814,7 +904,13 @@ $(document).ready(function(){
     });
 
 
+
   });
+
+
+
+
+
 
 </script>
 </body>
